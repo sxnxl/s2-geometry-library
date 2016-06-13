@@ -24,6 +24,13 @@ matrix:
     - os: osx
       compiler: clang
 
+python:
+  - "2.6"
+  - "2.7"
+  - "3.2"
+  - "3.3"
+  - "3.4"
+
 before_install:
 - |
   if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
