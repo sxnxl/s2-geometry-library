@@ -19,13 +19,6 @@ cmake .
 make -j3
 ./tests || exit 1
 
-if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-	# We really want to use the system version of Python.  Travis'
-	# has broken distutils paths, and assumes a virtualenv.
-	PATH="/usr/bin:${PATH}"
-	which python
-	python -V
-fi
 
 # Build and install the Python bindings
 echo "## Building and installing the Python bindings..."
