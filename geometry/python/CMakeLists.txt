@@ -7,7 +7,7 @@ set_property(GLOBAL PROPERTY CXX_STANDARD 11)
 set_property(GLOBAL PROPERTY CXX_STANDARD_REQUIRED ON)
 
 Find_Package(SWIG REQUIRED)
-Find_Package(PythonLibs 2.7 REQUIRED)
+Find_Package(PythonLibs REQUIRED)
 
 include(UseSWIG)
 
@@ -21,7 +21,7 @@ set_source_files_properties(s2.i PROPERTIES CPLUSPLUS ON)
 swig_add_module(s2 python s2.i)
 swig_link_libraries(s2 s2 s2cellid s2util ${PYTHON_LIBRARIES})
 
-execute_process(COMMAND python2.7 -c "from distutils.sysconfig import get_python_lib; from os.path import join; print join(get_python_lib(), 's2')" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
+execute_process(COMMAND python -c "from __future__ import print_function; from distutils.sysconfig import get_python_lib; from os.path import join; print (join(get_python_lib(), 's2'))" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
 install(TARGETS _s2 DESTINATION ${PYTHON_SITE_PACKAGES})
 install(FILES __init__.py s2.py DESTINATION ${PYTHON_SITE_PACKAGES})
 
