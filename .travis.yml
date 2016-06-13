@@ -1,4 +1,4 @@
-language: cpp
+language: python
 
 git:
   depth: 10
@@ -13,6 +13,7 @@ addons:
       - python-dev
       - scons
       - swig
+      - cmake
 
 sudo: required
 
@@ -25,11 +26,8 @@ matrix:
       compiler: clang
 
 python:
-  - "2.6"
   - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
+  - "3.5"
 
 before_install:
 - |
