@@ -6,20 +6,20 @@ notifications:
 addons:
   apt:
     packages: &native_deps
-    - swig
+      - swig
 
 sudo: required
 
 matrix:
   include:
-  - os: linux
-    dist: trusty
-    python: '2.6'
-    addons:
-      apt:
-        packages:
-          - *native_deps
-          - python-dev
+      #  - os: linux
+      #    dist: trusty
+      #    python: '2.6'
+      #    addons:
+      #      apt:
+      #        packages:
+      #          - *native_deps
+      #          - python-dev
   - os: linux
     dist: trusty
     python: '2.7'
@@ -28,58 +28,60 @@ matrix:
         packages:
           - *native_deps
           - python-dev
-  - os: linux
-    dist: trusty
-    python: '3.2'
-    addons:
-      apt:
-        packages:
-          - *native_deps
-          - python3-dev
-  - os: linux
-    dist: trusty
-    python: '3.3'
-    addons:
-      apt:
-        packages:
-          - *native_deps
-          - python3-dev
-  - os: linux
-    dist: trusty
-    python: '3.4'
-    addons:
-      apt:
-        packages:
-          - *native_deps
-          - python3-dev
-  - os: linux
-    dist: trusty
-    python: '3.5'
-    addons:
-      apt:
-        packages:
-          - *native_deps
-          - python3-dev
+      #  - os: linux
+      #    dist: trusty
+      #    python: '3.2'
+      #    addons:
+      #      apt:
+      #        packages:
+      #          - *native_deps
+      #          - python3-dev
+      #  - os: linux
+      #    dist: trusty
+      #    python: '3.3'
+      #    addons:
+      #      apt:
+      #        packages:
+      #          - *native_deps
+      #          - python3-dev
+      #  - os: linux
+      #    dist: trusty
+      #    python: '3.4'
+      #    addons:
+      #      apt:
+      #        packages:
+      #          - *native_deps
+      #          - python3-dev
+      #  - os: linux
+      #    dist: trusty
+      #    python: '3.5'
+      #    addons:
+      #      apt:
+      #        packages:
+      #          - *native_deps
+      #          - python3-dev
   - os: osx
-    osx_image: xcode7.3
+    language: generic
     env: PYENV_VERSION=2.7.11
   - os: osx
-    osx_image: xcode7.3
+    language: generic
     env: PYENV_VERSION=3.5.1
 
 
 
 before_install:
-- |
-  if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
-    brew update
-    brew install swig
-    brew outdated openssl || brew upgrade openssl
-    brew outdated cmake || brew upgrade cmake
-  fi
-- python -V
+  - |
+    if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
+      brew update
+      brew install swig
+      brew outdated openssl || brew upgrade openssl
+      brew outdated cmake || brew upgrade cmake
+    fi
+  - python -V
 
 script:
-- ./travis.sh
+  - ./travis.sh
 
-
+install:
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.6 ]]; then pip install scons; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then pip install scons; fi
