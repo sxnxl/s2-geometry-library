@@ -6,6 +6,7 @@ notifications:
 addons:
   apt:
     packages: &native_deps
+      - libssl-dev
       - swig
 
 sudo: required
@@ -19,7 +20,8 @@ matrix:
       apt:
         packages:
           - *native_deps
-          - python-dev
+          - python2.7-dev
+          - scons
   - os: linux
     dist: trusty
     python: '3.2'
