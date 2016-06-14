@@ -20,6 +20,14 @@ make -j3
 ./tests || exit 1
 
 
+if [[ $TRAVIS_OS_NAME == "linux" ]] && [[ $TRAVIS_PYTHON_VERSION = 2.7 ]]; then
+    # We really want to use the system version of Python for 2.7. Travis'
+    # has broken distutils paths, and assumes a virtualenv.
+    PATH="/usr/bin:${PATH}"
+    which python2.7
+    python2.7 -V
+fi
+
 # Build and install the Python bindings
 echo "## Building and installing the Python bindings..."
 cd ../python
@@ -29,6 +37,11 @@ sudo make install
 
 # Run the Python tests
 echo "## Running the Python tests..."
-python -v -c 'import s2'
-python test.py || exit 1
+if [[ $TRAVIS_OS_NAME == "linux" ]] && [[ $TRAVIS_PYTHON_VERSION = 2.7 ]]; then
+    python2.7 -v -c 'import s2'
+    python2.7 test.py || exit 1
+else
+    python -v -c 'import s2'
+    python test.py || exit 1
+fi
 
