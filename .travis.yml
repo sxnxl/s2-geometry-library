@@ -60,14 +60,12 @@ matrix:
       #        packages:
       #          - *native_deps
       #          - python3-dev
-  - os: osx
-    language: generic
-    env: PYENV_VERSION=2.7.11
-  - os: osx
-    language: generic
-    env: PYENV_VERSION=3.5.1
-
-
+      #  - os: osx
+      #    language: generic
+      #    env: PYENV_VERSION=2.7.11
+      #  - os: osx
+      #    language: generic
+      #    env: PYENV_VERSION=3.5.1
 
 before_install:
   - |
@@ -77,11 +75,9 @@ before_install:
       brew outdated openssl || brew upgrade openssl
       brew outdated cmake || brew upgrade cmake
     fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.6 ]]; then pip install scons; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then pip install scons; fi
   - python -V
 
 script:
   - ./travis.sh
-
-install:
-  - if [[ $TRAVIS_PYTHON_VERSION == 2.6 ]]; then pip install scons; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then pip install scons; fi
